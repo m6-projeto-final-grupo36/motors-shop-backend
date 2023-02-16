@@ -31,7 +31,7 @@ export class Advertiser {
   img_cape: string;
 
   @Column({ nullable: true })
-  images: string[];
+  images: string;
 
   @Column({ default: true })
   isActive: boolean;
