@@ -1,7 +1,7 @@
 import AppDataSource from "../../data-source";
 import { Announcement } from "../../entities/announcement.entity";
 
-export const createAdvertiserService = async (announcementData: any) => {
+export const createAnnouncementService = async (announcementData: any) => {
   const announcementRepository = AppDataSource.getRepository(Announcement);
 
   const newAnnouncement: Announcement = new Announcement();
@@ -15,9 +15,7 @@ export const createAdvertiserService = async (announcementData: any) => {
   newAnnouncement.isActive = announcementData.isActive;
   newAnnouncement.type_vehicle = announcementData.type_vehicle;
   newAnnouncement.type = announcementData.type;
-  newAnnouncement.createdAt = new Date();
-  newAnnouncement.updatedAt = new Date();
-
+  
   await announcementRepository.save(newAnnouncement);
 
   const AnnouncementCreated: Announcement | null =
