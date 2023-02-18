@@ -1,10 +1,16 @@
 import { Router } from "express";
 import {
   createAnnouncementController,
-  listAdvertisementController,
+  listAnnouncementController,
 } from "../controllers/announcement/announcement.controller";
+import { validateSchema } from "../middlewares/validateSchema.middleware";
+import { createAnnouncementValidator } from "../schemas/announcement/createAnnouncement";
 
 export const announcementRouter = Router();
 
-announcementRouter.post("", createAnnouncementController);
-announcementRouter.get("", listAdvertisementController);
+announcementRouter.post(
+  "",
+  validateSchema(createAnnouncementValidator),
+  createAnnouncementController
+);
+announcementRouter.get("", listAnnouncementController);
