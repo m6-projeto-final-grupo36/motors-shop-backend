@@ -1,4 +1,5 @@
 import "reflect-metadata";
+import "express-async-errors"
 import express, { Application } from "express";
 import { announcementRouter } from "./routes/announcement.routes";
 import { handleErrorMiddleware } from "./middlewares/handleError.middleware";

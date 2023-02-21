@@ -2,7 +2,7 @@ import AppDataSource from "../../data-source";
 import { Announcement } from "../../entities/announcement.entity";
 
 export const createAnnouncementService = async (announcementData: any) => {
-  const announcementRepository = AppDataSource.getRepository(Announcement);
+  const announcementsRepository = AppDataSource.getRepository(Announcement);
 
   const newAnnouncement: Announcement = new Announcement();
   newAnnouncement.title = announcementData.title;
@@ -16,10 +16,10 @@ export const createAnnouncementService = async (announcementData: any) => {
   newAnnouncement.type_vehicle = announcementData.type_vehicle;
   newAnnouncement.type = announcementData.type;
   
-  await announcementRepository.save(newAnnouncement);
+  await announcementsRepository.save(newAnnouncement);
 
   const AnnouncementCreated: Announcement | null =
-    await announcementRepository.findOneBy({
+    await announcementsRepository.findOneBy({
       id: newAnnouncement.id,
     });
 

@@ -1,10 +1,12 @@
 import { Router } from "express";
 import {
   createAnnouncementController,
-  listAdvertisementController,
+  deleteAnnouncementController,
+  listAnnouncementsController,
 } from "../controllers/announcement/announcement.controller";
 
 export const announcementRouter = Router();
 
 announcementRouter.post("", createAnnouncementController);
-announcementRouter.get("", listAdvertisementController);
+announcementRouter.get("", listAnnouncementsController);
+announcementRouter.delete('/:id', deleteAnnouncementController)
