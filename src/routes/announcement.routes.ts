@@ -3,6 +3,7 @@ import {
   createAnnouncementController,
   deleteAnnouncementController,
   listAnnouncementsController,
+  listRetrieveAnnouncementController,
 } from "../controllers/announcement/announcement.controller";
 import { validateSchema } from "../middlewares/validateSchema.middleware";
 import { createAnnouncementValidator } from "../schemas/announcement/createAnnouncement";
@@ -10,7 +11,8 @@ import { createAnnouncementValidator } from "../schemas/announcement/createAnnou
 export const announcementRouter = Router();
 
 announcementRouter.get("", listAnnouncementsController);
-announcementRouter.delete('/:id', deleteAnnouncementController)
+announcementRouter.get('/:id', listRetrieveAnnouncementController)
+announcementRouter.delete('/:id', deleteAnnouncementController);
 announcementRouter.post(
   "",
   validateSchema(createAnnouncementValidator),
