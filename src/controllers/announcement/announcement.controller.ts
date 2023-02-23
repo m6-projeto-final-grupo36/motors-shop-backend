@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { createAnnouncementService } from "../../services/announcement/createAnnouncement.service";
 import { deleteAnnouncementService } from "../../services/announcement/deleteAnnouncement.service";
 import { listAnnouncementsService } from "../../services/announcement/listAnnouncements.service";
+import { listRetrieveAnnouncementService } from "../../services/announcement/listRetrieveAnnouncement.service";
 
 const createAnnouncementController = async (req: Request, res: Response) => {
   const announcementData = req.validatedBody;
@@ -14,6 +15,14 @@ const listAnnouncementsController = async (req: Request, res: Response) => {
 
   return res.json(announcements);
 };
+
+const listRetrieveAnnouncementController = async(req: Request, res: Response) => {
+  const {id} = req.params
+
+  const announcement = await listRetrieveAnnouncementService(id)
+  
+  return res.json(announcement)
+}
 
 const deleteAnnouncementController = async (req: Request, res: Response) => {
   // Apenas o dono do anúncio pode acessar essa rota
@@ -28,4 +37,5 @@ export {
   createAnnouncementController,
   listAnnouncementsController,
   deleteAnnouncementController,
+  listRetrieveAnnouncementController,
 };
