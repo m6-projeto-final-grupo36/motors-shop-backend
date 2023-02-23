@@ -3,10 +3,17 @@ export interface IAnnouncementRequest {
   year: string;
   mileage: string;
   price: number;
-  description?: string;
-  img_cape?: string;
-  images?: string;
-  isActive?: boolean;
-  type_vehicle: string;
-  type: string;
+  description: string;
+  img_cape: string;
+  type_vehicle: "car" | "motorcycle";
+  images: string[];
+  type: "sales" | "auction";
+  is_active?: boolean;
+}
+
+export interface IAnnouncement extends IAnnouncementRequest {
+  id: string;
+  is_active: boolean;
+  created_at: Date;
+  updated_at: Date;
 }

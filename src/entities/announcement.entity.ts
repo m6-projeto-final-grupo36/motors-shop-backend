@@ -4,8 +4,12 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  JoinColumn,
+  OneToMany,
 } from "typeorm";
+import { Image } from "./images";
+
+export type AnnouncementType_vehicleType = "car" | "motorcycle";
+export type AnnouncementType_typeType = "sales" | "auction";
 
 @Entity("announcements")
 export class Announcement {
@@ -21,7 +25,7 @@ export class Announcement {
   @Column()
   mileage: string;
 
-  @Column('int')
+  @Column("int")
   price: number;
 
   @Column()
@@ -30,21 +34,21 @@ export class Announcement {
   @Column()
   img_cape: string;
 
-  @Column("text", { nullable: true, array: true })
-  images: string[];
-
   @Column({ default: true })
-  isActive: boolean;
+  is_active: boolean;
 
-  @Column({ default: "car" })
-  type_vehicle: string;
+  @Column({ type: "enum", enum: ["car", "motorcycle"], default: "car" })
+  type_vehicle: AnnouncementType_vehicleType;
 
-  @Column({ default: "sales" })
-  type: string;
+  @Column({ type: "enum", enum: ["sales", "auction"], default: "sales" })
+  type: AnnouncementType_typeType;
 
   @CreateDateColumn()
-  createdAt: Date;
+  created_at: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updated_at: Date;
+
+  @OneToMany(() => Image, (image) => image.announcement)
+  images: Image[];
 }
