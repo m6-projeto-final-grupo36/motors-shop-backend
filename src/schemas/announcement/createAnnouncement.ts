@@ -1,8 +1,8 @@
-import { object, string, Schema, number, boolean } from "yup";
-
+import { object, string, number, mixed, array, boolean } from "yup";
+import { SchemaOf } from "yup";
 import { IAnnouncementRequest } from "../../interfaces/announcement/announcement";
 
-const createAnnouncementValidator: Schema<IAnnouncementRequest> =
+export const createAnnouncementValidator: SchemaOf<IAnnouncementRequest> =
   object().shape({
     title: string().required("title is required"),
     year: string().required("year is required").max(4),
@@ -10,10 +10,8 @@ const createAnnouncementValidator: Schema<IAnnouncementRequest> =
     price: number().required("price is required"),
     description: string().required("description is required"),
     img_cape: string().required("img_cape is required"),
-    images: string(),
-    isActive: boolean(),
-    type_vehicle: string().required("type_vehicle is required"),
-    type: string().required("type is required"),
+    type_vehicle: mixed().oneOf(["car", "motorcycle"]).default("car"),
+    type: mixed().oneOf(["sales", "auction"]).default("sales"),
+    images: array().default([]),
+    is_active: boolean().default(true),
   });
-
-export { createAnnouncementValidator };

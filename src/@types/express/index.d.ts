@@ -6,6 +6,7 @@ declare global {
       announcement: {
         id: string;
       };
+      validatedBody: any;
     }
   }
 }
