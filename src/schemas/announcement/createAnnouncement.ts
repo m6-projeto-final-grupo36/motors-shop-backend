@@ -1,6 +1,9 @@
 import { object, string, number, mixed, array, boolean } from "yup";
 import { SchemaOf } from "yup";
-import { IAnnouncementRequest } from "../../interfaces/announcement/announcement";
+import {
+  IAnnouncementRequest,
+  IAnnouncementUpdate,
+} from "../../interfaces/announcement/announcement";
 
 export const createAnnouncementValidator: SchemaOf<IAnnouncementRequest> =
   object().shape({
@@ -14,4 +17,18 @@ export const createAnnouncementValidator: SchemaOf<IAnnouncementRequest> =
     type: mixed().oneOf(["sales", "auction"]).default("sales"),
     images: array().default([]),
     is_active: boolean().default(true),
+  });
+
+export const updateAnnouncementValidator: SchemaOf<IAnnouncementUpdate> =
+  object().shape({
+    title: string().notRequired(),
+    year: string().notRequired().max(4),
+    mileage: string().notRequired(),
+    price: number().notRequired(),
+    description: string().notRequired(),
+    img_cape: string().notRequired(),
+    type_vehicle: mixed().notRequired().oneOf(["car", "motorcycle"]),
+    type: mixed().notRequired().oneOf(["sales", "auction"]),
+    images: array().notRequired(),
+    is_active: boolean().notRequired(),
   });

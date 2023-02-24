@@ -1,6 +1,7 @@
 import AppDataSource from "../../data-source";
 import { Announcement } from "../../entities/announcement.entity";
 import { Image } from "../../entities/images";
+import { AppError } from "../../errors/appError";
 import { IAnnouncementRequest } from "../../interfaces/announcement/announcement";
 
 export const createAnnouncementService = async ({
@@ -36,6 +37,8 @@ export const createAnnouncementService = async ({
   await announcementsRepository.save(newAnnouncement);
 
   if (!!images.length) {
+    if (images.length > 6) throw new AppError("Maximum 6 images.", 400);
+
     images.forEach((img) => {
       const newImage = new Image();
       newImage.img = img;
