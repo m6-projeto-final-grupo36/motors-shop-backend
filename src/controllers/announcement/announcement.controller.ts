@@ -2,40 +2,49 @@ import { Request, Response } from "express";
 import { createAnnouncementService } from "../../services/announcement/createAnnouncement.service";
 import { deleteAnnouncementService } from "../../services/announcement/deleteAnnouncement.service";
 import { listAnnouncementsService } from "../../services/announcement/listAnnouncements.service";
+import { updatedAnnouncementService } from "../../services/announcement/updateAnnouncement.service";
 import { listRetrieveAnnouncementService } from "../../services/announcement/listRetrieveAnnouncement.service";
 
-const createAnnouncementController = async (req: Request, res: Response) => {
+export const createAnnouncementController = async (
+  req: Request,
+  res: Response
+) => {
   const announcementData = req.validatedBody;
   const announcement = await createAnnouncementService(announcementData);
   return res.status(201).send(announcement);
 };
 
-const listAnnouncementsController = async (req: Request, res: Response) => {
+export const listAnnouncementsController = async (
+  req: Request,
+  res: Response
+) => {
   const announcements = await listAnnouncementsService();
 
   return res.json(announcements);
 };
 
-const listRetrieveAnnouncementController = async(req: Request, res: Response) => {
+export const listRetrieveAnnouncementController = async(req: Request, res: Response) => {
   const {id} = req.params
-
   const announcement = await listRetrieveAnnouncementService(id)
-  
   return res.json(announcement)
 }
 
 const deleteAnnouncementController = async (req: Request, res: Response) => {
-  // Apenas o dono do anúncio pode acessar essa rota
-  // Caso não seja o dono ou outro usuário (comprador ou anunciante) já gerar um erro no middleware
-  // Pegar o id que vem por param e fazer o service
   const { id } = req.params;
   await deleteAnnouncementService(id);
   return res.status(204).send();
 };
 
-export {
-  createAnnouncementController,
-  listAnnouncementsController,
-  deleteAnnouncementController,
-  listRetrieveAnnouncementController,
+export const updateAnnouncementController = async (
+  req: Request,
+  res: Response
+) => {
+  const announcementeUpdateData = req.validatedBody;
+  const { id } = req.params;
+  const announcementUpdated = await updatedAnnouncementService(
+    announcementeUpdateData,
+    id
+  );
+
+  return res.status(200).send(announcementUpdated);
 };
