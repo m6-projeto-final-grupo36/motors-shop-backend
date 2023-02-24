@@ -4,6 +4,7 @@ import {
   deleteAnnouncementController,
   listAnnouncementsController,
   updateAnnouncementController,
+  listRetrieveAnnouncementController,
 } from "../controllers/announcement/announcement.controller";
 import { validateSchema } from "../middlewares/validateSchema.middleware";
 import {
@@ -19,6 +20,7 @@ announcementRouter.post(
   createAnnouncementController
 );
 announcementRouter.get("", listAnnouncementsController);
+announcementRouter.get('/:id', listRetrieveAnnouncementController)
 announcementRouter.patch(
   "/:id",
   validateSchema(updateAnnouncementValidator),
