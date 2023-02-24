@@ -23,13 +23,19 @@ export const listAnnouncementsController = async (
   return res.json(announcements);
 };
 
-export const listRetrieveAnnouncementController = async(req: Request, res: Response) => {
-  const {id} = req.params
-  const announcement = await listRetrieveAnnouncementService(id)
-  return res.json(announcement)
-}
+export const listRetrieveAnnouncementController = async (
+  req: Request,
+  res: Response
+) => {
+  const { id } = req.params;
+  const announcement = await listRetrieveAnnouncementService(id);
+  return res.json(announcement);
+};
 
-const deleteAnnouncementController = async (req: Request, res: Response) => {
+export const deleteAnnouncementController = async (
+  req: Request,
+  res: Response
+) => {
   const { id } = req.params;
   await deleteAnnouncementService(id);
   return res.status(204).send();
