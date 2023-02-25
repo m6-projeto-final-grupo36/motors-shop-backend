@@ -10,7 +10,7 @@ import { validateSchema } from "../middlewares/validateSchema.middleware";
 import {
   createAnnouncementValidator,
   updateAnnouncementValidator,
-} from "../schemas/announcement/createAnnouncement";
+} from "../schemas/announcement/announcementsSchemas";
 
 export const announcementRouter = Router();
 

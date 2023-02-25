@@ -62,7 +62,7 @@ export class User {
 
   @OneToOne(() => Address)
   @JoinColumn()
-  address: Address[];
+  address: Address;
 
   @OneToMany(() => Announcement, (announcements) => announcements.user, {
     onDelete: "CASCADE",

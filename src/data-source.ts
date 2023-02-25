@@ -1,10 +1,11 @@
 import { DataSource } from "typeorm";
 import "dotenv/config";
-import { createTableAnnouncements1676993900217 } from "./migrations/1676993900217-createTableAnnouncements";
-import { alterTableAnnouncementsAndCreateTableImage1677150628817 } from "./migrations/1677150628817-alterTableAnnouncementsAndCreateTableImage";
 import { Image } from "./entities/images";
 import { Announcement } from "./entities/announcement.entity";
-import { updateAnnouncementTypeVehicleType1677157135446 } from "./migrations/1677157135446-updateAnnouncementType_vehicleType";
+import { User } from "./entities/users.entity";
+import { Comment } from "./entities/comments.entity";
+import { Address } from "./entities/addresses.entity";
+import { createTables1677343374066 } from "./migrations/1677343374066-createTables";
 
 const AppDataSource = new DataSource({
   type: "postgres",
@@ -15,11 +16,9 @@ const AppDataSource = new DataSource({
   database: process.env.POSTGRES_DB,
   synchronize: false,
   logging: true,
-  entities: [Announcement, Image],
+  entities: [Announcement, Image, User, Comment, Address],
   migrations: [
-    createTableAnnouncements1676993900217,
-    alterTableAnnouncementsAndCreateTableImage1677150628817,
-    updateAnnouncementTypeVehicleType1677157135446,
+    createTables1677343374066,
   ],
 });
 

@@ -59,5 +59,5 @@ export class Announcement {
   comments: Comment[];
 
   @ManyToOne(() => User, (user) => user.announcements)
-  user: User[];
+  user: User;
 }

@@ -24,8 +24,8 @@ export class Comment {
   updated_At: Date;
 
   @ManyToOne(() => User, (user) => user.comments)
-  user: User[];
+  user: User;
 
   @ManyToOne(() => Announcement, (announcement) => announcement.comments)
-  announcement: Announcement[];
+  announcement: Announcement;
 }
