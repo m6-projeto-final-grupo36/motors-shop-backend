@@ -5,8 +5,11 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  ManyToOne,
 } from "typeorm";
+import { Comment } from "./comments.entity";
 import { Image } from "./images";
+import { User } from "./users.entity";
 
 export type AnnouncementType_vehicleType = "car" | "motorcycle";
 export type AnnouncementType_typeType = "sales" | "auction";
@@ -16,22 +19,22 @@ export class Announcement {
   @PrimaryGeneratedColumn("uuid")
   readonly id: string;
 
-  @Column()
+  @Column({ type: "varchar" })
   title: string;
 
   @Column({ length: 4 })
   year: string;
 
-  @Column()
+  @Column({ type: "varchar" })
   mileage: string;
 
   @Column("int")
   price: number;
 
-  @Column()
+  @Column({ type: "varchar" })
   description: string;
 
-  @Column()
+  @Column({ type: "varchar" })
   img_cape: string;
 
   @Column({ default: true })
@@ -43,12 +46,18 @@ export class Announcement {
   @Column({ type: "enum", enum: ["sales", "auction"], default: "sales" })
   type: AnnouncementType_typeType;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: "date" })
   created_at: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: "date" })
   updated_at: Date;
 
   @OneToMany(() => Image, (image) => image.announcement)
   images: Image[];
+
+  @OneToMany(() => Comment, (comment) => comment.announcement)
+  comments: Comment[];
+
+  @ManyToOne(() => User, (user) => user.announcements)
+  user: User[];
 }
