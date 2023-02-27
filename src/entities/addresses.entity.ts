@@ -5,7 +5,7 @@ export class Address {
   @PrimaryGeneratedColumn("uuid")
   readonly id: string;
 
-  @Column({ length: 8, type: "varchar" })
+  @Column({ type: "varchar" })
   cep: string;
 
   @Column({ length: 2, type: "varchar" })
