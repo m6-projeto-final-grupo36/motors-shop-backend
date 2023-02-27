@@ -10,7 +10,8 @@ export const createAnnouncementController = async (
   res: Response
 ) => {
   const announcementData = req.validatedBody;
-  const announcement = await createAnnouncementService(announcementData);
+  const userId = req.user.id
+  const announcement = await createAnnouncementService(announcementData, userId);
   return res.status(201).send(announcement);
 };
 
@@ -37,6 +38,7 @@ export const deleteAnnouncementController = async (
   res: Response
 ) => {
   const { id } = req.params;
+  const userId = req.user.id
   await deleteAnnouncementService(id);
   return res.status(204).send();
 };

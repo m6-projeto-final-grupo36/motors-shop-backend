@@ -1,6 +1,7 @@
 import AppDataSource from "../../data-source";
 import { Announcement } from "../../entities/announcement.entity";
 import { Image } from "../../entities/images";
+import { User } from "../../entities/users.entity";
 import { AppError } from "../../errors/appError";
 import { IAnnouncementRequest } from "../../interfaces/announcement/announcement";
 
@@ -15,9 +16,12 @@ export const createAnnouncementService = async ({
   type,
   images,
   is_active,
-}: IAnnouncementRequest) => {
+}: IAnnouncementRequest, userId: string) => {
   const announcementsRepository = AppDataSource.getRepository(Announcement);
   const imagesRepository = AppDataSource.getRepository(Image);
+  const userRepository = AppDataSource.getRepository(User)
+
+  const user = await userRepository.findOneBy({id: userId})
 
   const newAnnouncement = new Announcement();
   newAnnouncement.title = title;
@@ -28,6 +32,9 @@ export const createAnnouncementService = async ({
   newAnnouncement.img_cape = img_cape;
   newAnnouncement.type_vehicle = type_vehicle;
   newAnnouncement.type = type;
+  newAnnouncement.user = user!
+
+  const {cpf, cell_phone, birthdate, created_at, updated_at, announcements, password, ...userData } = user!
 
   if (is_active !== undefined) {
     newAnnouncement.is_active = is_active;
@@ -48,7 +55,7 @@ export const createAnnouncementService = async ({
     });
   }
 
-  const announcementResponse = { ...newAnnouncement, images };
+  const announcementResponse = { ...newAnnouncement, images, user: userData };
 
   return announcementResponse;
 };
