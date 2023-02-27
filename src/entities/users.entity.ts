@@ -40,19 +40,18 @@ export class User {
   cell_phone: string;
 
   @Column({ type: "date" })
-  @IsDateString()
+  // @IsDateString()
   birthdate: Date;
 
   @Column({ type: "text" })
   description: string;
 
-  @Column({ type: "varchar" })
+  @Column()
   @Exclude()
   password: string;
 
-  @Column({ type: "enum", enum: UserType, default: UserType.Buyer })
-  @IsEnum(UserType)
-  type_account: UserType;
+  @Column({ type: "enum", enum: ["buyer", "advertiser"], default: 'buyer'})
+  type_account: string;
 
   @CreateDateColumn({ type: "date" })
   createdAt: Date;
