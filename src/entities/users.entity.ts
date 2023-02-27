@@ -14,11 +14,6 @@ import { Announcement } from "./announcement.entity";
 import { Address } from "./addresses.entity";
 import { Comment } from "./comments.entity";
 
-export enum UserType {
-  Buyer = "buyer",
-  Advertiser = "advertiser",
-}
-
 @Entity("users")
 export class User {
   @PrimaryGeneratedColumn("uuid")
@@ -40,7 +35,7 @@ export class User {
   cell_phone: string;
 
   @Column({ type: "date" })
-  // @IsDateString()
+  @IsDateString()
   birthdate: Date;
 
   @Column({ type: "text" })
@@ -54,10 +49,10 @@ export class User {
   type_account: string;
 
   @CreateDateColumn({ type: "date" })
-  createdAt: Date;
+  created_at: Date;
 
   @UpdateDateColumn({ type: "date" })
-  updatedAt: Date;
+  updated_at: Date;
 
   @OneToOne(() => Address)
   @JoinColumn()
