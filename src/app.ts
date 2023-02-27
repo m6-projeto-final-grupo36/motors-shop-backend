@@ -4,6 +4,7 @@ import express, { Application } from "express";
 import { announcementRouter } from "./routes/announcement.routes";
 import { handleErrorMiddleware } from "./middlewares/handleError.middleware";
 import { userRouter } from "./routes/user.routes";
+import { sessionRouter } from "./routes/session.routes";
 
 export const app: Application = express();
 
@@ -13,6 +14,7 @@ let cors = require("cors");
 app.use(cors());
 
 app.use("/announcements", announcementRouter);
-app.use('/users', userRouter)
+app.use('/users', userRouter);
+app.use('/login', sessionRouter);
 
 app.use(handleErrorMiddleware);

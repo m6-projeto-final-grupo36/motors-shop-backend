@@ -42,13 +42,11 @@ export const createUserService = async ({
 
   await addressRepository.save(newAddress);
 
-  const hashedPassword = await hash(password, 10);
-
   const newUser = {
     name,
     email,
     birthdate,
-    password: hashedPassword,
+    password,
     cell_phone,
     cpf,
     description,
