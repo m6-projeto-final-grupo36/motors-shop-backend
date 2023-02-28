@@ -15,7 +15,7 @@ export const createUserService = async ({
   name,
   password,
   type_account,
-}: ICreateUser) => {
+}: ICreateUser): Promise<User> => {
   const userRepository = AppDataSource.getRepository(User);
 
   const addressRepository = AppDataSource.getRepository(Address);
