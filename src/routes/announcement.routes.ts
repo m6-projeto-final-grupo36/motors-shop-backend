@@ -18,15 +18,17 @@ export const announcementRouter = Router();
 
 announcementRouter.post(
   "",
-  validateSchema(createAnnouncementValidator),
   ensureAuthMiddleware,
   ensureIsAdvertiserUserMiddleware,
+  validateSchema(createAnnouncementValidator),
   createAnnouncementController
 );
 announcementRouter.get("", listAnnouncementsController);
 announcementRouter.get("/:id", listRetrieveAnnouncementController);
 announcementRouter.patch(
   "/:id",
+  ensureAuthMiddleware,
+  ensureIsAdvertiserUserMiddleware,
   validateSchema(updateAnnouncementValidator),
   updateAnnouncementController
 );
