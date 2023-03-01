@@ -1,13 +1,13 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class createTables1677532462005 implements MigrationInterface {
-    name = 'createTables1677532462005'
+export class createTables1677704933463 implements MigrationInterface {
+    name = 'createTables1677704933463'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TABLE "addresses" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "cep" character varying NOT NULL, "state" character varying(2) NOT NULL, "city" character varying NOT NULL, "road" character varying NOT NULL, "number" integer NOT NULL, "complement" character varying, CONSTRAINT "PK_745d8f43d3af10ab8247465e450" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TYPE "public"."users_type_account_enum" AS ENUM('buyer', 'advertiser')`);
         await queryRunner.query(`CREATE TABLE "users" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying NOT NULL, "email" character varying(150) NOT NULL, "cpf" character varying(11) NOT NULL, "cell_phone" character varying(11) NOT NULL, "birthdate" date NOT NULL, "description" text NOT NULL, "password" character varying NOT NULL, "type_account" "public"."users_type_account_enum" NOT NULL DEFAULT 'buyer', "created_at" date NOT NULL DEFAULT now(), "updated_at" date NOT NULL DEFAULT now(), "addressId" uuid, CONSTRAINT "UQ_230b925048540454c8b4c481e1c" UNIQUE ("cpf"), CONSTRAINT "REL_bafb08f60d7857f4670c172a6e" UNIQUE ("addressId"), CONSTRAINT "PK_a3ffb1c0c8416b9fc6f907b7433" PRIMARY KEY ("id"))`);
-        await queryRunner.query(`CREATE TABLE "comments" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "text" text NOT NULL, "created_at" date NOT NULL DEFAULT now(), "updated_At" date NOT NULL DEFAULT now(), "userId" uuid, "announcementId" uuid, CONSTRAINT "PK_8bf68bc960f2b69e818bdb90dcb" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "comments" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "text" text NOT NULL, "created_at" date NOT NULL DEFAULT now(), "updated_at" date NOT NULL DEFAULT now(), "userId" uuid, "announcementId" uuid, CONSTRAINT "PK_8bf68bc960f2b69e818bdb90dcb" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TYPE "public"."announcements_type_vehicle_enum" AS ENUM('car', 'motorcycle')`);
         await queryRunner.query(`CREATE TYPE "public"."announcements_type_enum" AS ENUM('sales', 'auction')`);
         await queryRunner.query(`CREATE TABLE "announcements" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "title" character varying NOT NULL, "year" character varying(4) NOT NULL, "mileage" character varying NOT NULL, "price" integer NOT NULL, "description" character varying NOT NULL, "img_cape" character varying NOT NULL, "is_active" boolean NOT NULL DEFAULT true, "type_vehicle" "public"."announcements_type_vehicle_enum" NOT NULL DEFAULT 'car', "type" "public"."announcements_type_enum" NOT NULL DEFAULT 'sales', "created_at" date NOT NULL DEFAULT now(), "updated_at" date NOT NULL DEFAULT now(), "userId" uuid, CONSTRAINT "PK_b3ad760876ff2e19d58e05dc8b0" PRIMARY KEY ("id"))`);

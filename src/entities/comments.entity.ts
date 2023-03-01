@@ -21,7 +21,7 @@ export class Comment {
   created_at: Date;
 
   @UpdateDateColumn({ type: "date" })
-  updated_At: Date;
+  updated_at: Date;
 
   @ManyToOne(() => User, (user) => user.comments, {eager:true})
   user: User;
