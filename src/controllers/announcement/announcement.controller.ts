@@ -38,7 +38,6 @@ export const deleteAnnouncementController = async (
   res: Response
 ) => {
   const { id } = req.params;
-  const userId = req.user.id
   await deleteAnnouncementService(id);
   return res.status(204).send();
 };

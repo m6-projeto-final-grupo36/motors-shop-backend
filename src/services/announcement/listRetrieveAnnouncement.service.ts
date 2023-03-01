@@ -11,6 +11,8 @@ export const listRetrieveAnnouncementService = async (idParam: string) => {
     },
     relations: {
       images: true,
+      user: true,
+      comments:true
     },
   });
 
