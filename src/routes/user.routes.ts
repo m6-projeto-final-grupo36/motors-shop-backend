@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createUserController, deleteUserController, listRetrieveUserController, listUserController } from "../controllers/user/user.controller";
+import { createUserController, deleteUserController, listRetrieveUserController, listUsersController } from "../controllers/user/user.controller";
 import { ensureAuthMiddleware } from "../middlewares/ensureAuth.middleware";
 import { ensureIsAccountOwner } from "../middlewares/ensureIsAccountOwner.middleware";
 
@@ -11,5 +11,5 @@ export const userRouter = Router();
 
 userRouter.post('', validateSchema(createUserValidator), createUserController)
 userRouter.get('/:id', listRetrieveUserController)
-userRouter.get('', listUserController)
+userRouter.get('', listUsersController)
 userRouter.delete('/:id', ensureAuthMiddleware, ensureIsAccountOwner, deleteUserController)
