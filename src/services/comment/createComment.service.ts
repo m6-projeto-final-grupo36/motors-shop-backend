@@ -2,8 +2,9 @@ import AppDataSource from "../../data-source";
 import { Comment } from "../../entities/comments.entity";
 import { Announcement } from "../../entities/announcement.entity";
 import { User } from "../../entities/users.entity";
+import { IComment } from "../../interfaces/comment/comment";
 
-export const createCommentService = async (text: string, userId: string, announcementId: string): Promise<Comment> => {
+export const createCommentService = async ({text}: IComment, userId: string, announcementId: string): Promise<Comment> => {
     const commentRepositoy = AppDataSource.getRepository(Comment)
     const announcementRepository = AppDataSource.getRepository(Announcement)
     const userRepository = AppDataSource.getRepository(User)
@@ -21,7 +22,7 @@ export const createCommentService = async (text: string, userId: string, announc
     newComment.user = user!
 
     const commentCreated = commentRepositoy.create(newComment);
-    await commentRepositoy.save(newComment);
+    await commentRepositoy.save(commentCreated);
 
     return commentCreated
 }
