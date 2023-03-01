@@ -4,6 +4,7 @@ import { deleteAnnouncementService } from "../../services/announcement/deleteAnn
 import { listAnnouncementsService } from "../../services/announcement/listAnnouncements.service";
 import { updatedAnnouncementService } from "../../services/announcement/updateAnnouncement.service";
 import { listRetrieveAnnouncementService } from "../../services/announcement/listRetrieveAnnouncement.service";
+import { instanceToPlain } from "class-transformer";
 
 export const createAnnouncementController = async (
   req: Request,
@@ -21,7 +22,7 @@ export const listAnnouncementsController = async (
 ) => {
   const announcements = await listAnnouncementsService();
 
-  return res.json(announcements);
+  return res.json(instanceToPlain(announcements));
 };
 
 export const listRetrieveAnnouncementController = async (
@@ -30,7 +31,7 @@ export const listRetrieveAnnouncementController = async (
 ) => {
   const { id } = req.params;
   const announcement = await listRetrieveAnnouncementService(id);
-  return res.json(announcement);
+  return res.json(instanceToPlain(announcement));
 };
 
 export const deleteAnnouncementController = async (

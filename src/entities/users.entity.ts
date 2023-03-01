@@ -60,7 +60,6 @@ export class User {
 
   @OneToMany(() => Announcement, (announcements) => announcements.user, {
     onDelete: "CASCADE",
-    // eager: true,
   })
   announcements: Announcement[];
 
