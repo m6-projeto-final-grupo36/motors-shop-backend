@@ -27,7 +27,7 @@ export const listRetrieveUserController = async (
 
 export const deleteUserController = async (req: Request, res: Response) => {
   const userId = req.user.id
-  const idParam = req.params.id;
-  await deleteUserService(userId, idParam);
+
+  await deleteUserService(userId);
   return res.status(204).send();
 };
