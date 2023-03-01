@@ -5,14 +5,14 @@ import { AppError } from "../../errors/appError";
 import { ICreateUser } from "../../interfaces/user/user";
 
 export const createUserService = async ({
-  birthdate,
-  cell_phone,
-  cpf,
-  address,
-  email,
-  description,
   name,
+  email,
+  cpf,
+  cell_phone,
+  birthdate,
+  description,
   password,
+  address,
   type_account,
 }: ICreateUser): Promise<User> => {
   const userRepository = AppDataSource.getRepository(User);
@@ -21,19 +21,15 @@ export const createUserService = async ({
 
   const users = await userRepository.find();
 
-  const addressAlreadyExists = await addressRepository.findOne({
-    where: {
-      ...address,
-    },
-  });
-
-  if (addressAlreadyExists) {
-    throw new AppError("A user with this address already exists");
-  }
-
   const emailAlreadyExists = users.find((user) => user.email === email);
 
   if (emailAlreadyExists) {
+    throw new AppError("A user with this cpf or email already exists");
+  }
+
+  const cpfAlreadyExists = users.find((user) => user.cpf === cpf);
+
+  if (cpfAlreadyExists) {
     throw new AppError("A user with this cpf or email already exists");
   }
 
@@ -55,7 +51,7 @@ export const createUserService = async ({
 
   const userCreated = userRepository.create(newUser);
 
-  await userRepository.save(userCreated)
- 
-  return userCreated
+  await userRepository.save(userCreated);
+
+  return userCreated;
 };
