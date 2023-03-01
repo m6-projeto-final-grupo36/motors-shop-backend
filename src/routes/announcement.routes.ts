@@ -6,6 +6,7 @@ import {
   updateAnnouncementController,
   listRetrieveAnnouncementController,
 } from "../controllers/announcement/announcement.controller";
+import { ensureAnnouncementOwnerMiddleware } from "../middlewares/ensureAnnouncementOwnerMiddleware";
 import { ensureAuthMiddleware } from "../middlewares/ensureAuth.middleware";
 import { ensureIsAdvertiserUserMiddleware } from "../middlewares/ensureIsAdvertiserUser.middleware";
 import { validateSchema } from "../middlewares/validateSchema.middleware";
@@ -29,6 +30,7 @@ announcementRouter.patch(
   "/:id",
   ensureAuthMiddleware,
   ensureIsAdvertiserUserMiddleware,
+  ensureAnnouncementOwnerMiddleware,
   validateSchema(updateAnnouncementValidator),
   updateAnnouncementController
 );
@@ -36,5 +38,6 @@ announcementRouter.delete(
   "/:id",
   ensureAuthMiddleware,
   ensureIsAdvertiserUserMiddleware,
+  ensureAnnouncementOwnerMiddleware,
   deleteAnnouncementController
 );
