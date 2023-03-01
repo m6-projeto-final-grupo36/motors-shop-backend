@@ -4,6 +4,7 @@ import { instanceToPlain } from "class-transformer";
 import { listRetrieveUserService } from "../../services/user/listRetrieveUser.service";
 import { listUsersService } from "../../services/user/listUsers.service";
 import { deleteUserService } from "../../services/user/deleteUser.service";
+import { updateUserService } from "../../services/user/updateUser.service";
 
 export const createUserController = async (req: Request, res: Response) => {
   const userData = req.validatedBody;
@@ -26,8 +27,16 @@ export const listRetrieveUserController = async (
 };
 
 export const deleteUserController = async (req: Request, res: Response) => {
-  const userId = req.user.id
+  const userId = req.user.id;
 
   await deleteUserService(userId);
   return res.status(204).send();
+};
+
+export const updateUserController = async (req: Request, res: Response) => {
+  const userUpdateData = req.validatedBody;
+  const { id } = req.params;
+  const userUpdated = await updateUserService(userUpdateData, id);
+
+  return res.status(200).send(userUpdated);
 };
