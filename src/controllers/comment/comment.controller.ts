@@ -2,7 +2,7 @@ import { createCommentService } from "../../services/comment/createComment.servi
 import { Request, Response } from "express";
 
 export const createCommentController = async (req: Request, res: Response) => {
-  const commentText = req.body;
+  const commentText = req.validatedBody;
   const userId = req.user.id;
   const announcementId = req.params.id;
   const comment = await createCommentService(

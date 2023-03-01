@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { createUserService } from "../../services/user/createUser.service";
 import { instanceToPlain } from "class-transformer";
 import { listRetrieveUserService } from "../../services/user/listRetrieveUser.service";
-import { listUserService } from "../../services/user/listUser.service";
+import { listUsersService } from "../../services/user/listUsers.service";
 import { deleteUserService } from "../../services/user/deleteUser.service";
 
 export const createUserController = async (req: Request, res: Response) => {
@@ -11,9 +11,9 @@ export const createUserController = async (req: Request, res: Response) => {
   return res.status(201).json(instanceToPlain(user));
 };
 
-export const listUserController = async (req: Request, res: Response) => {
-  const user = await listUserService();
-  return res.json(instanceToPlain(user));
+export const listUsersController = async (req: Request, res: Response) => {
+  const users = await listUsersService();
+  return res.json(instanceToPlain(users));
 };
 
 export const listRetrieveUserController = async (
