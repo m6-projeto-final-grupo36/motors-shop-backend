@@ -22,7 +22,7 @@ export const forgotPasswordService = async (
   const mailOptions = {
     from: process.env.EMAIL_USERNAME,
     to: email,
-    subject: "Password reset",
+    subject: "Recuperar senha",
     html: `
       <html>
         <head>
@@ -31,7 +31,7 @@ export const forgotPasswordService = async (
               font-family: sans-serif;
             }
             .button {
-              background-color: #008CBA;
+              background-color: #008cba82;
               border: none;
               color: white;
               padding: 10px 20px;
