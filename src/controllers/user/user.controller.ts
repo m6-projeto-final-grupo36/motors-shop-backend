@@ -5,6 +5,8 @@ import { listRetrieveUserService } from "../../services/user/listRetrieveUser.se
 import { listUsersService } from "../../services/user/listUsers.service";
 import { deleteUserService } from "../../services/user/deleteUser.service";
 import { updateUserService } from "../../services/user/updateUser.service";
+import { resetPasswordService } from "../../services/user/resetPassword.service";
+import { forgotPasswordService } from "../../services/user/forgotPassword.service";
 
 export const createUserController = async (req: Request, res: Response) => {
   const userData = req.validatedBody;
@@ -39,4 +41,27 @@ export const updateUserController = async (req: Request, res: Response) => {
   const userUpdated = await updateUserService(userUpdateData, id);
 
   return res.status(200).send(userUpdated);
+};
+
+export const forgotPasswordController = async (req: Request, res: Response) => {
+  const { email, name } = req.body;
+  // const username = email.split("@")[0];
+
+  const resetLink = "http://localhost:3000/recover_password";
+
+  const { message } = await forgotPasswordService(email, resetLink, name);
+
+  return res.status(200).json({
+    message,
+  });
+};
+
+export const resetPasswordController = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { password } = req.body;
+  await resetPasswordService(id, password);
+
+  return res.status(200).json({
+    message: "Password updated successfully.",
+  });
 };

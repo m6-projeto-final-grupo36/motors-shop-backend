@@ -39,3 +39,12 @@ export interface IUserUpdate {
   address?: IAddressUpdate;
   password?: string;
 }
+
+export interface IForgotPassword {
+  name: string;
+  email: string;
+}
+
+export interface IResetPassword {
+  password: string;
+}
