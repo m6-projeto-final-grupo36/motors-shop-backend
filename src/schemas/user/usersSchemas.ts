@@ -1,5 +1,10 @@
 import { object, SchemaOf, string, number, date, mixed } from "yup";
-import { ICreateUser, IUserUpdate } from "../../interfaces/user/user";
+import {
+  ICreateUser,
+  IForgotPassword,
+  IResetPassword,
+  IUserUpdate,
+} from "../../interfaces/user/user";
 import { hashSync } from "bcryptjs";
 
 export const createUserValidator: SchemaOf<ICreateUser> = object().shape({
@@ -74,4 +79,16 @@ export const updateUserValidator: SchemaOf<IUserUpdate> = object().shape({
         .notRequired(),
       complement: string().notRequired(),
     }),
+});
+
+export const forgotPasswordValidator: SchemaOf<IForgotPassword> =
+  object().shape({
+    name: string().required("name is required"),
+    email: string().email("email invalid").required("email is required"),
+  });
+
+export const resetPasswordValidator: SchemaOf<IResetPassword> = object().shape({
+  password: string()
+    .transform((pwd) => hashSync(pwd, 10))
+    .required("password is required"),
 });
