@@ -6,7 +6,7 @@ import {
   updateAnnouncementController,
   listRetrieveAnnouncementController,
 } from "../controllers/announcement/announcement.controller";
-import { ensureAnnouncementOwnerMiddleware } from "../middlewares/ensureAnnouncementOwnerMiddleware";
+import { ensureAnnouncementOwnerMiddleware } from "../middlewares/ensureAnnouncementOwner.middleware";
 import { ensureAuthMiddleware } from "../middlewares/ensureAuth.middleware";
 import { ensureIsAdvertiserUserMiddleware } from "../middlewares/ensureIsAdvertiserUser.middleware";
 import { validateSchema } from "../middlewares/validateSchema.middleware";

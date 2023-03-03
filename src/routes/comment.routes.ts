@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { createCommentController, deleteCommentController } from "../controllers/comment/comment.controller";
 import { ensureAuthMiddleware } from "../middlewares/ensureAuth.middleware";
+import { ensureIsOwnerCommentMiddleware } from "../middlewares/ensureIsOwnerComment.middleware";
 import { validateSchema } from "../middlewares/validateSchema.middleware";
 import { createCommentValidator } from "../schemas/comment/commentsSchemas";
 
@@ -12,4 +13,4 @@ commentRouter.post(
   validateSchema(createCommentValidator),
   createCommentController
 );
-commentRouter.delete("/:id", ensureAuthMiddleware, deleteCommentController)
+commentRouter.delete("/:id", ensureAuthMiddleware, ensureIsOwnerCommentMiddleware, deleteCommentController)
