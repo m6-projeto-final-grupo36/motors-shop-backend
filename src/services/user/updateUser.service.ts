@@ -1,6 +1,5 @@
 import AppDataSource from "../../data-source";
 import { Address } from "../../entities/addresses.entity";
-import { Image } from "../../entities/images";
 import { User } from "../../entities/users.entity";
 import { AppError } from "../../errors/appError";
 import { IUserUpdate } from "../../interfaces/user/user";
@@ -58,11 +57,20 @@ export const updateUserService = async (data: IUserUpdate, user_id: string) => {
     state: state ? state : findAddress.state,
   });
 
-  const response = {
+  const response: any = {
     ...findUser,
     ...data,
-    address: { ...findAddress, ...address },
+    address: {
+      cep: cep ? cep : findAddress.cep,
+      city: city ? city : findAddress.city,
+      complement: complement ? complement : findAddress.complement,
+      number: number ? number : findAddress.number,
+      road: road ? road : findAddress.road,
+      state: state ? state : findAddress.state,
+    },
   };
+
+  delete response.password;
 
   return response;
 };
