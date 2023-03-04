@@ -1,9 +1,13 @@
 import { Router } from "express";
-import { createCommentController, deleteCommentController } from "../controllers/comment/comment.controller";
+import {
+  createCommentController,
+  deleteCommentController,
+  updateCommentController,
+} from "../controllers/comment/comment.controller";
 import { ensureAuthMiddleware } from "../middlewares/ensureAuth.middleware";
 import { ensureIsOwnerCommentMiddleware } from "../middlewares/ensureIsOwnerComment.middleware";
 import { validateSchema } from "../middlewares/validateSchema.middleware";
-import { createCommentValidator } from "../schemas/comment/commentsSchemas";
+import { createCommentValidator, updateCommentValidator } from "../schemas/comment/commentsSchemas";
 
 export const commentRouter = Router();
 
@@ -13,4 +17,16 @@ commentRouter.post(
   validateSchema(createCommentValidator),
   createCommentController
 );
-commentRouter.delete("/:id", ensureAuthMiddleware, ensureIsOwnerCommentMiddleware, deleteCommentController)
+commentRouter.patch(
+  "/:id",
+  ensureAuthMiddleware,
+  ensureIsOwnerCommentMiddleware,
+  validateSchema(updateCommentValidator),
+  updateCommentController
+);
+commentRouter.delete(
+  "/:id",
+  ensureAuthMiddleware,
+  ensureIsOwnerCommentMiddleware,
+  deleteCommentController
+);
