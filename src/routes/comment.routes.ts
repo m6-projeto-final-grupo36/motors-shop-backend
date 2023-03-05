@@ -7,7 +7,10 @@ import {
 import { ensureAuthMiddleware } from "../middlewares/ensureAuth.middleware";
 import { ensureIsOwnerCommentMiddleware } from "../middlewares/ensureIsOwnerComment.middleware";
 import { validateSchema } from "../middlewares/validateSchema.middleware";
-import { createCommentValidator, updateCommentValidator } from "../schemas/comment/commentsSchemas";
+import {
+  createCommentValidator,
+  updateCommentValidator,
+} from "../schemas/comment/commentsSchemas";
 
 export const commentRouter = Router();
 
@@ -25,7 +28,7 @@ commentRouter.patch(
   updateCommentController
 );
 commentRouter.delete(
-  "/:id",
+  "/:id", //comments
   ensureAuthMiddleware,
   ensureIsOwnerCommentMiddleware,
   deleteCommentController

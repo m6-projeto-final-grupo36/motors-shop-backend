@@ -19,7 +19,7 @@ interface IAddress {
   complement?: string;
 }
 
-interface IAddressUpdate {
+export interface IAddressUpdate {
   cep?: string;
   state?: string;
   city?: string;
@@ -36,7 +36,6 @@ export interface IUserUpdate {
   birthdate?: Date;
   description?: string;
   type_account?: "buyer" | "advertiser";
-  address?: IAddressUpdate;
   password?: string;
 }
 

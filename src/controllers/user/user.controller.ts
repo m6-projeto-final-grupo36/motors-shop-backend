@@ -7,6 +7,7 @@ import { deleteUserService } from "../../services/user/deleteUser.service";
 import { updateUserService } from "../../services/user/updateUser.service";
 import { resetPasswordService } from "../../services/user/resetPassword.service";
 import { forgotPasswordService } from "../../services/user/forgotPassword.service";
+import { updateAddressService } from "../../services/user/updateAddress.service";
 
 export const createUserController = async (req: Request, res: Response) => {
   const userData = req.validatedBody;
@@ -64,4 +65,13 @@ export const resetPasswordController = async (req: Request, res: Response) => {
   return res.status(200).json({
     message: "Password updated successfully.",
   });
+};
+
+export const updateAddressController = async (req: Request, res: Response) => {
+  const addressUpdateData = req.validatedBody;
+  const { id } = req.params;
+  console.log("***", id, addressUpdateData);
+  const addressUpdated = await updateAddressService(addressUpdateData, id);
+
+  return res.status(200).send(addressUpdated);
 };

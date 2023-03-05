@@ -1,5 +1,6 @@
 import { object, SchemaOf, string, number, date, mixed } from "yup";
 import {
+  IAddressUpdate,
   ICreateUser,
   IForgotPassword,
   IResetPassword,
@@ -64,21 +65,20 @@ export const updateUserValidator: SchemaOf<IUserUpdate> = object().shape({
     .transform((pwd) => hashSync(pwd, 10))
     .notRequired(),
   type_account: mixed().oneOf(["buyer", "advertiser"]).notRequired(),
-  address: object()
+});
+
+export const addressUpdateSchema: SchemaOf<IAddressUpdate> = object().shape({
+  cep: string()
     .notRequired()
-    .shape({
-      cep: string()
-        .notRequired()
-        .matches(/[0-9]{5}-?[\d]{3}/, "cep invalid"),
-      state: string().max(2, "state invalid").notRequired(),
-      city: string().notRequired(),
-      road: string().notRequired(),
-      number: number()
-        .integer("number invalid")
-        .positive("number invalid")
-        .notRequired(),
-      complement: string().notRequired(),
-    }),
+    .matches(/[0-9]{5}-?[\d]{3}/, "cep invalid"),
+  state: string().notRequired().max(2, "state invalid"),
+  city: string().notRequired(),
+  road: string().notRequired(),
+  number: number()
+    .notRequired()
+    .integer("number invalid")
+    .positive("number invalid"),
+  complement: string().notRequired(),
 });
 
 export const forgotPasswordValidator: SchemaOf<IForgotPassword> =

@@ -6,6 +6,7 @@ import {
   listRetrieveUserController,
   listUsersController,
   resetPasswordController,
+  updateAddressController,
   updateUserController,
 } from "../controllers/user/user.controller";
 import { ensureAuthMiddleware } from "../middlewares/ensureAuth.middleware";
@@ -18,6 +19,7 @@ import {
   forgotPasswordValidator,
   resetPasswordValidator,
   updateUserValidator,
+  addressUpdateSchema,
 } from "../schemas/user/usersSchemas";
 
 export const userRouter = Router();
@@ -48,4 +50,11 @@ userRouter.patch(
   ensureIsAccountOwner,
   validateSchema(updateUserValidator),
   updateUserController
+);
+userRouter.patch(
+  "/address/:id", // id do usuário
+  ensureAuthMiddleware,
+  ensureIsAccountOwner,
+  validateSchema(addressUpdateSchema),
+  updateAddressController
 );
