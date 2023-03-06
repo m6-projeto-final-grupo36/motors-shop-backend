@@ -41,12 +41,11 @@ export const updateUserController = async (req: Request, res: Response) => {
   const { id } = req.params;
   const userUpdated = await updateUserService(userUpdateData, id);
 
-  return res.status(200).send(userUpdated);
+  return res.status(200).send(instanceToPlain(userUpdated));
 };
 
 export const forgotPasswordController = async (req: Request, res: Response) => {
   const { email, name } = req.body;
-  // const username = email.split("@")[0];
 
   const resetLink = "http://localhost:3000/recover_password";
 
@@ -70,8 +69,7 @@ export const resetPasswordController = async (req: Request, res: Response) => {
 export const updateAddressController = async (req: Request, res: Response) => {
   const addressUpdateData = req.validatedBody;
   const { id } = req.params;
-  console.log("***", id, addressUpdateData);
   const addressUpdated = await updateAddressService(addressUpdateData, id);
 
-  return res.status(200).send(addressUpdated);
+  return res.status(200).send(instanceToPlain(addressUpdated));
 };

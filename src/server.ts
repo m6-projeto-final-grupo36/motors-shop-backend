@@ -6,7 +6,6 @@ import AppDataSource from "./data-source";
     console.error("Error during Data Source initialization", err);
   });
 
-  // mudei para não conflitar com o front
   app.listen(3333, () => {
     console.log("Servidor executando");
   });

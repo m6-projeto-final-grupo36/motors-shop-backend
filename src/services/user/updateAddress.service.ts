@@ -43,8 +43,10 @@ export const updateAddressService = async (
     address: { ...findAddress, ...data },
   };
 
-  delete response.password;
+  const addressUpdated = await userRepository.findOne({
+    where: { id: user_id },
+    relations: { address: true },
+  });
 
-  console.log(response);
-  return response;
+  return addressUpdated!;
 };

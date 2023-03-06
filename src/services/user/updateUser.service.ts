@@ -4,7 +4,7 @@ import { User } from "../../entities/users.entity";
 import { AppError } from "../../errors/appError";
 import { IUserUpdate } from "../../interfaces/user/user";
 
-export const updateUserService = async (data: IUserUpdate, user_id: string) => {
+export const updateUserService = async (data: IUserUpdate, user_id: string): Promise<User> => {
   const {
     birthdate,
     cell_phone,
@@ -46,12 +46,7 @@ export const updateUserService = async (data: IUserUpdate, user_id: string) => {
     type_account: type_account ? type_account : findUser.type_account,
   });
 
-  const response: any = {
-    ...findUser,
-    ...data,
-  };
+  const userUpdated = await userRepository.findOneBy({id: user_id})
 
-  delete response.password;
-
-  return response;
+  return userUpdated!;
 };
