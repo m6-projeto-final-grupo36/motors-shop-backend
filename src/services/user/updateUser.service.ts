@@ -24,8 +24,34 @@ export const updateUserService = async (data: IUserUpdate, user_id: string): Pro
   });
 
   if (!findUser) {
-    throw new AppError("Announcement not found", 404);
+    throw new AppError("User not found", 404);
   }
+
+  if(email){
+    const emailAlreadyExist = await userRepository.findOne({
+      where: {
+        email
+      }
+    })
+
+    if(emailAlreadyExist){
+      throw new AppError('Email already being used', 403)
+    }
+  }
+
+  
+  if(cpf){
+    const cpfAlreadyExist = await userRepository.findOne({
+      where: {
+        cpf  
+      }
+    })
+
+    if(cpfAlreadyExist){
+      throw new AppError('CPF already being used', 403)
+    }    
+  }
+
 
   const findAddress = await addressRepository.findOne({
     where: { id: findUser.address.id },

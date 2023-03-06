@@ -3,6 +3,7 @@ import { Comment } from "../../entities/comments.entity";
 import { Announcement } from "../../entities/announcement.entity";
 import { User } from "../../entities/users.entity";
 import { IComment } from "../../interfaces/comment/comment";
+import { AppError } from "../../errors/appError";
 
 export const createCommentService = async ({text}: IComment, userId: string, announcementId: string): Promise<Comment> => {
     const commentRepositoy = AppDataSource.getRepository(Comment)
@@ -16,9 +17,13 @@ export const createCommentService = async ({text}: IComment, userId: string, ann
         id: userId
     })
 
+    if(!announcement){
+        throw new AppError('Announcement not found.', 404)
+    }
+
     const newComment = new Comment()
     newComment.text = text
-    newComment.announcement = announcement!
+    newComment.announcement = announcement
     newComment.user = user!
 
     const commentCreated = commentRepositoy.create(newComment);

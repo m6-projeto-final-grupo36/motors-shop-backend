@@ -5,7 +5,7 @@ export const ensureIsAccountOwner = async(req: Request, res: Response, next: Nex
     const idParam = req.params.id
 
     if(userId !== idParam) {
-        return res.status(401).json({ message: "You do not have permission to delete this user." })
+        return res.status(401).json({ message: "You don't have permission." })
     }
     next()
 }

@@ -28,7 +28,7 @@ commentRouter.patch(
   updateCommentController
 );
 commentRouter.delete(
-  "/:id", //comments
+  "/:id",
   ensureAuthMiddleware,
   ensureIsOwnerCommentMiddleware,
   deleteCommentController
