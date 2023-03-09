@@ -1,0 +1,11 @@
+.vscode/
+/node_modules
+**lock**
+logs/
+*.log
+npm-debug.log*
+dist/
+*.js.map
+/.pnp/
+.pnp.js
+.env
