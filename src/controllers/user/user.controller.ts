@@ -40,6 +40,7 @@ export const updateUserController = async (req: Request, res: Response) => {
   const userUpdateData = req.validatedBody;
   const { id } = req.params;
   const userUpdated = await updateUserService(userUpdateData, id);
+  console.log(instanceToPlain(userUpdated));
 
   return res.status(200).send(instanceToPlain(userUpdated));
 };

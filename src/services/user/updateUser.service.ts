@@ -4,7 +4,7 @@ import { User } from "../../entities/users.entity";
 import { AppError } from "../../errors/appError";
 import { IUserUpdate } from "../../interfaces/user/user";
 
-export const updateUserService = async (data: IUserUpdate, user_id: string): Promise<User> => {
+export const updateUserService = async (data: IUserUpdate, user_id: string) => {
   const {
     birthdate,
     cell_phone,
@@ -27,31 +27,29 @@ export const updateUserService = async (data: IUserUpdate, user_id: string): Pro
     throw new AppError("User not found", 404);
   }
 
-  if(email){
+  if (email) {
     const emailAlreadyExist = await userRepository.findOne({
       where: {
-        email
-      }
-    })
+        email,
+      },
+    });
 
-    if(emailAlreadyExist){
-      throw new AppError('Email already being used', 403)
+    if (emailAlreadyExist && email !== findUser.email) {
+      throw new AppError("Email already being used", 403);
     }
   }
 
-  
-  if(cpf){
+  if (cpf) {
     const cpfAlreadyExist = await userRepository.findOne({
       where: {
-        cpf  
-      }
-    })
+        cpf,
+      },
+    });
 
-    if(cpfAlreadyExist){
-      throw new AppError('CPF already being used', 403)
-    }    
+    if (cpfAlreadyExist && cpf !== findUser.cpf) {
+      throw new AppError("CPF already being used", 403);
+    }
   }
-
 
   const findAddress = await addressRepository.findOne({
     where: { id: findUser.address.id },
@@ -72,7 +70,9 @@ export const updateUserService = async (data: IUserUpdate, user_id: string): Pro
     type_account: type_account ? type_account : findUser.type_account,
   });
 
-  const userUpdated = await userRepository.findOneBy({id: user_id})
+  const userUpdated = await userRepository.findOneBy({ id: user_id });
+  const response = { ...userUpdated, address: { ...findAddress } };
+  delete response.password;
 
-  return userUpdated!;
+  return response;
 };
